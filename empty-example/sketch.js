@@ -44,10 +44,36 @@ class Box {
 }
 
 
+let input1, input2, button, instruction;
+
 function setup() {
 	canvas = createCanvas(window.innerWidth, window.innerHeight);
-	grid = new Grid(16, 10);
+
+	// input1 = createInput();
+	// input1.position(20, 65);
+
+	// input2 = createInput();
+	// input2.position(20, 150);
+
+	// button = createButton('submit');
+	// button.position(20, input2.y+input2.height);
+	// button.mousePressed(start);
+
+	// instruction = createElement('h2', 'input two numbers');
+	// instruction.position(20, 5);
+
+	grid = new Grid(132, 84);
 }
+
+// function start() {
+// 	const num1 = input1.value();
+// 	const num2 = input2.value();
+// 	input1.remove();
+// 	input2.remove();
+// 	button.remove();
+// 	instruction.remove();
+// 	grid = new Grid(num1, num2);
+// }
 
 function draw() {
 	// refresh background to white
@@ -63,6 +89,8 @@ function draw() {
 	textSize(60);
 	text(grid.getBox1().getIndex(), (window.innerWidth-1.5*boxSize)/2, (window.innerHeight-boxSize/1.5)/2);
 	text(grid.getBox2().getIndex(), (window.innerWidth+boxSize/2)/2, (window.innerHeight-boxSize/1.5)/2);
+
+
 }
 
 function nextEuclid() {
@@ -74,7 +102,7 @@ function nextEuclid() {
 	}
 }
 
-function mousePressed() {
+function mouseClicked() {
 	nextEuclid();
 }
 
