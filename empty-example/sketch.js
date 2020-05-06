@@ -50,17 +50,20 @@ function setup() {
 	canvas = createCanvas(window.innerWidth, window.innerHeight);
 
 	input1 = createInput();
-	input1.position(20, 65);
+	input1.position(window.innerWidth/2 - 70, window.innerHeight/2 - 50);
 
 	input2 = createInput();
-	input2.position(20, 150);
+	input2.position(window.innerWidth/2 - 70, window.innerHeight/2);
 
 	button = createButton('submit');
-	button.position(20, input2.y+input2.height);
+	button.position(window.innerWidth/2 - 70, input2.y+input2.height);
 	button.mousePressed(begin);
 
 	instruction = createElement('h2', 'input two numbers');
-	instruction.position(20, 5);
+	instruction.position(window.innerWidth/2 - 100, input1.y - 75);
+
+	title = createElement('h1', 'Euclid Algorithm Visualizer');
+	title.position((window.innerWidth/2) - 175, 25);
 	noLoop();
 }
 
