@@ -49,31 +49,45 @@ let input1, input2, button, instruction;
 function setup() {
 	canvas = createCanvas(window.innerWidth, window.innerHeight);
 
-	// input1 = createInput();
-	// input1.position(20, 65);
+	input1 = createInput();
+	input1.position(20, 65);
 
-	// input2 = createInput();
-	// input2.position(20, 150);
+	input2 = createInput();
+	input2.position(20, 150);
 
-	// button = createButton('submit');
-	// button.position(20, input2.y+input2.height);
-	// button.mousePressed(start);
+	button = createButton('submit');
+	button.position(20, input2.y+input2.height);
+	button.mousePressed(begin);
 
-	// instruction = createElement('h2', 'input two numbers');
-	// instruction.position(20, 5);
-
-	grid = new Grid(132, 84);
+	instruction = createElement('h2', 'input two numbers');
+	instruction.position(20, 5);
+	noLoop();
 }
 
-// function start() {
-// 	const num1 = input1.value();
-// 	const num2 = input2.value();
-// 	input1.remove();
-// 	input2.remove();
-// 	button.remove();
-// 	instruction.remove();
-// 	grid = new Grid(num1, num2);
-// }
+function begin() {
+	const isnum1 = /^\d+$/.test(input1.value());
+	const isnum2 = /^\d+$/.test(input2.value());
+	if (isnum1 && isnum2) {
+		start();
+	}
+	else {
+		input1.value('');
+		input2.value('');
+	}
+}
+
+
+function start() {
+	const num1 = input1.value().trim();
+	const num2 = input2.value().trim();
+	input1.remove();
+	input2.remove();
+	button.remove();
+	instruction.remove();
+	grid = new Grid(num1, num2);
+	redraw();
+
+}
 
 function draw() {
 	// refresh background to white
@@ -86,9 +100,26 @@ function draw() {
 
 	// creates text for numbers
 	fill(0);
-	textSize(60);
-	text(grid.getBox1().getIndex(), (window.innerWidth-1.5*boxSize)/2, (window.innerHeight-boxSize/1.5)/2);
-	text(grid.getBox2().getIndex(), (window.innerWidth+boxSize/2)/2, (window.innerHeight-boxSize/1.5)/2);
+	const num1 = grid.getBox1().getIndex();
+	const num2 = grid.getBox2().getIndex();
+	const num1Length = num1.toString().length;
+	const num2Length = num2.toString().length;
+
+
+	var num1TextSize = boxSize / (num1Length * (5/4));
+	var num2TextSize = boxSize / (num2Length * (5/4))
+	if (num1TextSize > 60) {
+		num1TextSize = 60;
+	}
+	if (num2TextSize > 60) {
+		num2TextSize = 60;
+	}
+
+	textSize(num1TextSize);
+	text(num1, (window.innerWidth-1.5*boxSize)/2, (window.innerHeight-boxSize/1.5)/2);
+
+	textSize(num2TextSize);
+	text(num2, (window.innerWidth+boxSize/2)/2, (window.innerHeight-boxSize/1.5)/2);
 
 
 }
@@ -104,5 +135,6 @@ function nextEuclid() {
 
 function mouseClicked() {
 	nextEuclid();
+	redraw();
 }
 
